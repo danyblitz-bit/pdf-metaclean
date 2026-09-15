@@ -41,6 +41,10 @@ python -m tools.pdf-metaclean --self-check
 
 pypdf silently re-injects `/Producer` on every write. PDF MetaClean strips the PDF `/Info` trailer entry at the byte level after writing, so **no metadata can survive** — verified by the built-in self-check.
 
+## Support the Project
+
+PDF MetaClean is free and open source. Support development with a [pay-what-you-want contribution](https://danyblitz.gumroad.com).
+
 ## License
 
 MIT
