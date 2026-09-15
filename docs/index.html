@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDF MetaClean — Remove Hidden Metadata from PDFs</title>
+<meta name="description" content="PDF MetaClean strips sensitive metadata (author, software, timestamps) from PDF files with one CLI command. Byte-level /Info removal, verified by a built-in self-check.">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, 'Segoe UI', Roboto, sans-serif; background: #0d1117; color: #e6edf3; line-height: 1.6; }
+  .container { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+  header { padding: 80px 0 40px; text-align: center; }
+  header h1 { font-size: 3rem; background: linear-gradient(135deg, #58a6ff, #f0883e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  header p { font-size: 1.2rem; color: #8b949e; max-width: 600px; margin: 16px auto; }
+  .badge { display: inline-block; background: #21262d; border: 1px solid #30363d; border-radius: 6px; padding: 4px 12px; margin: 4px; font-size: 0.85rem; color: #8b949e; }
+  .cta { margin-top: 32px; }
+  .btn { display: inline-block; background: #238636; color: #fff; padding: 14px 32px; border-radius: 8px; text-decoration: none; font-size: 1.1rem; font-weight: 600; }
+  .btn:hover { background: #2ea043; }
+  .btn.secondary { background: #1f6feb; margin-left: 12px; }
+  .btn.secondary:hover { background: #388bfd; }
+  .features { padding: 60px 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+  .card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 28px; }
+  .card h3 { color: #58a6ff; margin-bottom: 12px; }
+  .card p { color: #8b949e; font-size: 0.95rem; }
+  section h2 { margin: 40px 0 24px; color: #f0883e; font-size: 1.6rem; }
+  code { background: #21262d; padding: 2px 8px; border-radius: 4px; color: #79c0ff; font-size: 0.9em; }
+  .usage-steps { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 32px; }
+  .usage-steps ol { padding-left: 20px; color: #8b949e; }
+  .usage-steps li { margin-bottom: 12px; }
+  footer { padding: 40px 0; text-align: center; color: #484f58; font-size: 0.85rem; border-top: 1px solid #21262d; margin-top: 60px; }
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <h1>PDF MetaClean</h1>
+    <p>Strip sensitive metadata from PDF files before you share them — author, software, timestamps. One command, verified.</p>
+    <div>
+      <span class="badge">Python</span>
+      <span class="badge">CLI</span>
+      <span class="badge">Privacy</span>
+      <span class="badge">Open Source</span>
+      <span class="badge">MIT License</span>
+    </div>
+    <div class="cta">
+      <a class="btn" href="https://github.com/danyblitz-bit/pdf-metaclean">View on GitHub</a>
+      <a class="btn secondary" href="https://danyblitz.gumroad.com/l/zjkam">Get the DevTools Bundle</a>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+  <section class="features">
+    <div class="card">
+      <h3>Audit Hidden Metadata</h3>
+      <p>A PDF exported from business software can silently carry your name, company, and editing timestamps. See exactly what leaks.</p>
+    </div>
+    <div class="card">
+      <h3>Byte-Level Removal</h3>
+      <p>Strips the PDF <code>/Info</code> trailer entry after writing, so pypdf can't silently re-inject <code>/Producer</code> on the next save.</p>
+    </div>
+    <div class="card">
+      <h3>Clean Copy or In-Place</h3>
+      <p><code>--clean</code> writes a sanitized <code>report_clean.pdf</code>; <code>--in-place</code> overwrites the original after cleaning.</p>
+    </div>
+    <div class="card">
+      <h3>Built-in Self-Check</h3>
+      <p><code>--self-check</code> creates a tagged PDF and verifies on your own machine that no metadata survives.</p>
+    </div>
+    <div class="card">
+      <h3>Verbose Mode</h3>
+      <p>List every metadata field the file carries before you decide what to strip.</p>
+    </div>
+    <div class="card">
+      <h3>Local & Private</h3>
+      <p>Everything runs on your machine. Your PDF never leaves your computer.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quick Start</h2>
+    <div class="usage-steps">
+      <ol>
+        <li><code>pip install -r requirements.txt</code></li>
+        <li>Inspect what's hidden: <code>python -m tools.pdf-metaclean report.pdf --verbose</code></li>
+        <li>Write a sanitized copy: <code>python -m tools.pdf-metaclean report.pdf --clean</code></li>
+        <li>Overwrite the original: <code>python -m tools.pdf-metaclean report.pdf --in-place</code></li>
+        <li>Verify it works on your machine: <code>python -m tools.pdf-metaclean --self-check</code></li>
+      </ol>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="container">
+    PDF MetaClean is free and open source (MIT). Built with Python.<br>
+    <a href="https://github.com/danyblitz-bit/pdf-metaclean" style="color:#8b949e">GitHub</a> &nbsp;·&nbsp;
+    <a href="https://github.com/danyblitz-bit/pdf-metaclean/blob/main/README.md" style="color:#8b949e">Documentation</a>
+  </div>
+</footer>
+</body>
+</html>
