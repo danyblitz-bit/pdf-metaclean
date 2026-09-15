@@ -43,7 +43,10 @@ pypdf silently re-injects `/Producer` on every write. PDF MetaClean strips the P
 
 ## Support the Project
 
-PDF MetaClean is free and open source. Support development with a [pay-what-you-want contribution](https://danyblitz.gumroad.com).
+PDF MetaClean is free and open source. Like it?
+
+- [Buy the DevTools Bundle](https://danyblitz.gumroad.com/l/zjkam) — standalone .exe + 2 extra tools + guide, pay what you want
+- [Buy me a coffee](https://danyblitz.gumroad.com/l/hrvpiu) — one-time support
 
 ## License
 
