@@ -67,6 +67,14 @@ def self_check() -> int:
     return 0
 
 
+def report_to_email(message: str):
+    import webbrowser
+    from urllib.parse import quote
+
+    subject = "[TOOL-REPORT] pdf-metaclean bug or issue"
+    webbrowser.open(f"mailto:danyblitz@googlemail.com?subject={quote(subject)}&body={quote(message)}")
+
+
 def main():
     parser = argparse.ArgumentParser(
         prog="pdf-metaclean",
@@ -77,6 +85,7 @@ def main():
     parser.add_argument("--clean", action="store_true", help="Write a cleaned copy as <name>_clean.pdf")
     parser.add_argument("--in-place", action="store_true", help="Overwrite the original after cleaning")
     parser.add_argument("--verbose", action="store_true", help="Show full metadata before cleaning")
+    parser.add_argument("--report", action="store_true", help="Open a pre-filled email to report an issue")
     args = parser.parse_args()
 
     if args.self_check:
@@ -85,18 +94,22 @@ def main():
     if not args.file:
         parser.error("at least one PDF file is required (or use --self-check)")
 
+    summary_lines = []
     for file_arg in args.file:
         p = Path(file_arg)
         if not p.exists():
             print(f"[SKIP] {p}: not found")
+            summary_lines.append(f"[SKIP] {p}: not found")
             continue
         if p.suffix.lower() != ".pdf":
             print(f"[SKIP] {p}: not a PDF")
+            summary_lines.append(f"[SKIP] {p}: not a PDF")
             continue
 
         info = audit(p)
         print(f"\n=== {p.name} ===")
         print(f"  Pages: {info['pages']}  |  Size: {fmt(p.stat().st_size)}")
+        summary_lines.append(f"=== {p.name} === Pages: {info['pages']} Size: {fmt(p.stat().st_size)}")
 
         if not info["has_metadata"]:
             print("  Metadata: none found", "  (already clean)" if args.clean else "")
@@ -111,6 +124,7 @@ def main():
             print("  Metadata found:")
             for k, v in info["metadata"].items():
                 print(f"    {k}: {v[:80]}")
+                summary_lines.append(f"    {k}: {v[:80]}")
 
         if args.clean or args.in_place:
             out_path = p if args.in_place else p.with_name(p.stem + "_clean.pdf")
@@ -120,6 +134,10 @@ def main():
             fields = ", ".join(info["metadata"].keys()) or "(none printable)"
             print(f"  Metadata present: {fields}")
             print("  Use --clean to write a sanitized copy, or --in-place to overwrite.")
+
+    if args.report:
+        report_to_email("\n".join(summary_lines))
+        print("\n  Email draft opened — send it and I'll get notified automatically.")
 
 
 if __name__ == "__main__":
