@@ -1,0 +1,27 @@
+name: Question
+description: Usage help or "how do I..."
+labels: ["question", "needs-triage"]
+body:
+  - type: checkboxes
+    attributes:
+      label: Before you open this
+      options:
+        - label: I searched the existing issues and the documentation
+          required: true
+  - type: input
+    attributes:
+      label: Short question
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: What I tried
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Config or code
+      description: Optional. The smallest snippet that shows the problem.
+      render: text
+    validations:
+      required: false

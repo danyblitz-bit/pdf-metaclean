@@ -1,0 +1,29 @@
+name: Feature request
+description: Propose a change, starting from the problem it solves
+title: "[FEATURE] "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: checkboxes
+    attributes:
+      label: Before you open this
+      options:
+        - label: I searched the existing issues for this idea
+          required: true
+  - type: textarea
+    attributes:
+      label: The problem
+      description: What you cannot do today, and who it affects.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Proposed change
+      description: The smallest change that would fix it.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Alternatives you considered
+      description: Optional. Workarounds or designs you ruled out, and why.
+    validations:
+      required: false
