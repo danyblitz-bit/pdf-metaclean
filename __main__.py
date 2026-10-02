@@ -19,6 +19,7 @@ def audit(path: Path) -> dict:
 
 
 def clean(path: Path, out: Path) -> dict:
+    original = path.stat().st_size
     reader = PdfReader(str(path))
     writer = PdfWriter()
     for page in reader.pages:
@@ -33,13 +34,12 @@ def clean(path: Path, out: Path) -> dict:
     raw = re.sub(r"/Info <<[^>]*>>", "", raw)
     out.write_bytes(raw.encode("latin-1"))
 
-    original = path.stat().st_size
     result = out.stat().st_size
     return {"cleaned": True, "input_bytes": original, "output_bytes": result, "saved_bytes": original - result}
 
 
 def fmt(v: int) -> str:
-    return f"{v/1024:.1f} KB"
+    return f"{v} B" if v < 1024 else f"{v/1024:.1f} KB"
 
 
 def self_check() -> int:
@@ -63,6 +63,12 @@ def self_check() -> int:
         check = audit(out)
         assert not check["has_metadata"], f"Metadata remained: {check['metadata']}"
         assert check["pages"] == 1, "Page count changed"
+
+        # in-place: out is path, so the input size must be read before writing
+        ip = Path(d) / "inplace.pdf"
+        ip.write_bytes(buf.getvalue())
+        res2 = clean(ip, ip)
+        assert res2["saved_bytes"] > 0, f"in-place reported no savings: {res2}"
     print("self-check OK: metadata stripped, page preserved")
     return 0
 
