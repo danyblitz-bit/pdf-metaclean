@@ -1,3 +1,23 @@
+Metadata-Version: 2.4
+Name: pdf-metaclean
+Version: 1.0.1
+Summary: Strip hidden metadata (author, producer, XMP) from PDFs before sharing — byte-level, no re-encoding.
+Author: Danilo Fortunato
+License-Expression: MIT
+Project-URL: Homepage, https://danyblitz-bit.github.io/pdf-metaclean/
+Project-URL: Repository, https://github.com/danyblitz-bit/pdf-metaclean
+Project-URL: Bug Tracker, https://github.com/danyblitz-bit/pdf-metaclean/issues
+Keywords: pdf,metadata,privacy,xmp,strip,redact,gdpr,cli
+Classifier: Programming Language :: Python :: 3
+Classifier: Environment :: Console
+Classifier: Topic :: Security
+Classifier: Topic :: Text Processing
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: End Users/Desktop
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: pypdf>=6.15.0
+
 # PDF MetaClean
 
 Remove sensitive metadata from PDF files before you share them. One command, three modes.
@@ -9,23 +29,23 @@ A PDF exported from your business software can silently carry your **name, compa
 ## Install & Run
 
 ```bash
-pip install pdf-metaclean
+pip install -r requirements.txt
 
 # Inspect what's hidden in a PDF
-pdfmetaclean report.pdf
+python -m tools.pdf-metaclean report.pdf
 
 # See the full metadata list
-pdfmetaclean report.pdf --verbose
+python -m tools.pdf-metaclean report.pdf --verbose
 
 # Write a sanitized copy
-pdfmetaclean report.pdf --clean
+python -m tools.pdf-metaclean report.pdf --clean
 # -> report_clean.pdf
 
 # Overwrite the original
-pdfmetaclean report.pdf --in-place
+python -m tools.pdf-metaclean report.pdf --in-place
 
 # Verify the tool works on your machine
-pdfmetaclean --self-check
+python -m tools.pdf-metaclean --self-check
 ```
 
 ## Options
@@ -53,7 +73,7 @@ PDF MetaClean is free and open source. Like it?
 Found a bug or something weird? Run:
 
 ```bash
-pdfmetaclean --report
+python -m tools.pdf-metaclean --report
 ```
 
 This opens a pre-filled email. Send it and I'll get notified automatically.

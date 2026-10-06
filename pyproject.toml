@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pdf-metaclean"
+version = "1.0.1"
+description = "Strip hidden metadata (author, producer, XMP) from PDFs before sharing — byte-level, no re-encoding."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+authors = [{ name = "Danilo Fortunato" }]
+keywords = [
+    "pdf",
+    "metadata",
+    "privacy",
+    "xmp",
+    "strip",
+    "redact",
+    "gdpr",
+    "cli",
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Environment :: Console",
+    "Topic :: Security",
+    "Topic :: Text Processing",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+]
+dependencies = ["pypdf>=6.15.0"]
+
+[project.urls]
+Homepage = "https://danyblitz-bit.github.io/pdf-metaclean/"
+Repository = "https://github.com/danyblitz-bit/pdf-metaclean"
+"Bug Tracker" = "https://github.com/danyblitz-bit/pdf-metaclean/issues"
+
+[project.scripts]
+pdfmetaclean = "pdfmetaclean.__main__:main"
+
+[tool.setuptools]
+packages = ["pdfmetaclean"]
+
+[tool.setuptools.package-dir]
+pdfmetaclean = "."
